@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Karachi Weather</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header>
+        <h1>Karachi Weather</h1>
+        <p>Live weather and 5-day outlook for Karachi, Pakistan.</p>
+      </header>
+
+      <section class="current card" aria-live="polite">
+        <h2>Current Conditions</h2>
+        <div id="currentContent" class="loading">Loading latest weather…</div>
+      </section>
+
+      <section class="forecast card">
+        <h2>5-Day Forecast</h2>
+        <div id="forecastContent" class="grid"></div>
+      </section>
+
+      <footer>
+        <p>Data source: Open-Meteo API</p>
+      </footer>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
