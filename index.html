@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Karachi Weather</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-1" aria-hidden="true"></div>
+    <div class="bg-orb orb-2" aria-hidden="true"></div>
+    <div class="bg-orb orb-3" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+
+    <main class="app glass-shell">
+      <header class="card glass-card">
+        <h1>Karachi Weather</h1>
+        <p>Live weather and 5-day outlook for Karachi, Pakistan.</p>
+      </header>
+
+      <section class="current card glass-card" aria-live="polite">
+        <h2>Current Conditions</h2>
+        <div id="currentContent" class="loading">Loading latest weather…</div>
+      </section>
+
+      <section class="forecast card glass-card">
+        <h2>5-Day Forecast</h2>
+        <div id="forecastContent" class="grid"></div>
+      </section>
+
+      <footer class="card glass-card footer-card">
+        <p>Data source: Open-Meteo API</p>
+      </footer>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
