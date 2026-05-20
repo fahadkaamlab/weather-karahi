@@ -3,29 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Karachi Weather</title>
+    <title>Eid al Adha Card Generator</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="app">
       <header>
-        <h1>Karachi Weather</h1>
-        <p>Live weather and 5-day outlook for Karachi, Pakistan.</p>
+        <h1>Eid al Adha Card Generator</h1>
+        <p>Choose a square design, add a name, and download your personalized PNG card.</p>
       </header>
 
-      <section class="current card" aria-live="polite">
-        <h2>Current Conditions</h2>
-        <div id="currentContent" class="loading">Loading latest weather…</div>
+      <section class="card chooser">
+        <h2>1) Pick a card style</h2>
+        <div id="templateGrid" class="template-grid" role="radiogroup" aria-label="Card templates"></div>
       </section>
 
-      <section class="forecast card">
-        <h2>5-Day Forecast</h2>
-        <div id="forecastContent" class="grid"></div>
+      <section class="card controls">
+        <h2>2) Customize</h2>
+        <label for="nameInput">Name to print on card</label>
+        <input id="nameInput" type="text" maxlength="40" placeholder="e.g., Ayesha" />
+        <button id="generateBtn" type="button">Generate PNG</button>
       </section>
 
-      <footer>
-        <p>Data source: Open-Meteo API</p>
-      </footer>
+      <section class="card output">
+        <h2>3) Preview & Download</h2>
+        <canvas id="cardCanvas" width="1080" height="1080" aria-label="Eid card preview"></canvas>
+        <a id="downloadBtn" class="download hidden" download="eid-al-adha-card.png">Download PNG</a>
+      </section>
     </main>
 
     <script src="app.js"></script>
