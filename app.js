@@ -7,6 +7,8 @@ const KARACHI = {
 
 const currentEl = document.getElementById("currentContent");
 const forecastEl = document.getElementById("forecastContent");
+const lastUpdatedEl = document.getElementById("lastUpdated");
+const conditionChipEl = document.getElementById("conditionChip");
 
 function weatherCodeToText(code) {
   const map = {
@@ -33,11 +35,31 @@ function weatherCodeToText(code) {
   return map[code] ?? "Unknown";
 }
 
+function weatherCodeIcon(code) {
+  if (code === 0) return "☀️";
+  if ([1, 2].includes(code)) return "⛅";
+  if (code === 3) return "☁️";
+  if ([45, 48].includes(code)) return "🌫️";
+  if ([51, 53, 55, 61, 63, 65, 80, 81, 82].includes(code)) return "🌧️";
+  if ([71, 73, 75].includes(code)) return "❄️";
+  if (code === 95) return "⛈️";
+  return "🌡️";
+}
+
 function formatDay(dateString) {
   return new Date(dateString).toLocaleDateString("en-PK", {
     weekday: "short",
     month: "short",
     day: "numeric",
+  });
+}
+
+function formatDateTime(date) {
+  return date.toLocaleString("en-PK", {
+    weekday: "short",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
   });
 }
 
@@ -58,15 +80,21 @@ async function loadWeather() {
     const data = await res.json();
 
     const current = data.current;
+    const conditionText = weatherCodeToText(current.weather_code);
+    const conditionIcon = weatherCodeIcon(current.weather_code);
+
+    lastUpdatedEl.textContent = `Updated ${formatDateTime(new Date())}`;
+    conditionChipEl.textContent = `${conditionIcon} ${conditionText}`;
+
     currentEl.classList.remove("loading");
     currentEl.innerHTML = `
       <div class="current-grid">
         <div class="current-item"><span class="label">Location</span><span class="value">${KARACHI.name}</span></div>
-        <div class="current-item"><span class="label">Temperature</span><span class="value">${Math.round(current.temperature_2m)}°C</span></div>
+        <div class="current-item"><span class="label">Temperature</span><span class="value temp">${Math.round(current.temperature_2m)}°C</span></div>
         <div class="current-item"><span class="label">Feels like</span><span class="value">${Math.round(current.apparent_temperature)}°C</span></div>
         <div class="current-item"><span class="label">Humidity</span><span class="value">${current.relative_humidity_2m}%</span></div>
         <div class="current-item"><span class="label">Wind</span><span class="value">${Math.round(current.wind_speed_10m)} km/h</span></div>
-        <div class="current-item"><span class="label">Condition</span><span class="value">${weatherCodeToText(current.weather_code)}</span></div>
+        <div class="current-item"><span class="label">Condition</span><span class="value"><span class="icon">${conditionIcon}</span>${conditionText}</span></div>
       </div>
     `;
 
@@ -78,7 +106,7 @@ async function loadWeather() {
         return `
           <article class="day">
             <h3>${formatDay(date)}</h3>
-            <p>${weatherCodeToText(code)}</p>
+            <p>${weatherCodeIcon(code)} ${weatherCodeToText(code)}</p>
             <strong>${max}° / ${min}°</strong>
           </article>
         `;
@@ -87,6 +115,8 @@ async function loadWeather() {
   } catch (error) {
     currentEl.classList.remove("loading");
     currentEl.textContent = "Could not load weather data right now. Please try again.";
+    conditionChipEl.textContent = "Offline";
+    lastUpdatedEl.textContent = "Update failed";
     forecastEl.innerHTML = "";
     console.error(error);
   }

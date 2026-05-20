@@ -8,18 +8,28 @@
   </head>
   <body>
     <main class="app">
-      <header>
-        <h1>Karachi Weather</h1>
-        <p>Live weather and 5-day outlook for Karachi, Pakistan.</p>
+      <header class="hero card">
+        <div>
+          <p class="eyebrow">Weather Karahi · One UI 8.5 style</p>
+          <h1>Karachi Weather</h1>
+          <p class="subtitle">Live weather and 5-day outlook for Karachi, Pakistan.</p>
+        </div>
+        <span class="status-pill" id="lastUpdated">Syncing…</span>
       </header>
 
       <section class="current card" aria-live="polite">
-        <h2>Current Conditions</h2>
+        <div class="section-head">
+          <h2>Current Conditions</h2>
+          <span class="chip" id="conditionChip">--</span>
+        </div>
         <div id="currentContent" class="loading">Loading latest weather…</div>
       </section>
 
       <section class="forecast card">
-        <h2>5-Day Forecast</h2>
+        <div class="section-head">
+          <h2>5-Day Forecast</h2>
+          <span class="chip ghost">Daily overview</span>
+        </div>
         <div id="forecastContent" class="grid"></div>
       </section>
 
